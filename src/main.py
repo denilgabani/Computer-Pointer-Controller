@@ -43,6 +43,9 @@ def build_argparser():
                         help="MKLDNN (CPU)-targeted custom layers."
                              "Absolute path to a shared library with the"
                              "kernels impl.")
+    parser.add_argument("-prob", "--prob_threshold", required=False, type=float,
+                        default=0.6,
+                        help="Probability threshold for model to detect the face accurately from the video frame.")
     parser.add_argument("-d", "--device", type=str, default="CPU",
                         help="Specify the target device to infer on: "
                              "CPU, GPU, FPGA or MYRIAD is acceptable. Sample "
@@ -100,7 +103,7 @@ def main():
             cv2.imshow('video',cv2.resize(frame,(500,500)))
     
         key = cv2.waitKey(60)
-        croppedFace, face_coords = fdm.predict(frame.copy())
+        croppedFace, face_coords = fdm.predict(frame.copy(), args.prob_threshold)
         if type(croppedFace)==int:
             logger.error("Unable to detect the face.")
             if key==27:

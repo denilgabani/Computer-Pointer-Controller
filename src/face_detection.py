@@ -61,7 +61,7 @@ class FaceDetectionModel:
         self.output_names = next(iter(self.network.outputs))
         self.output_shape = self.network.outputs[self.output_names].shape
         
-    def predict(self, image):
+    def predict(self, image, prob_threshold):
         '''
         TODO: You will need to complete this method.
         This method is meant for running predictions on the input image.
@@ -69,7 +69,7 @@ class FaceDetectionModel:
         
         img_processed = self.preprocess_input(image.copy())
         outputs = self.exec_net.infer({self.input_name:img_processed})
-        coords = self.preprocess_output(outputs)
+        coords = self.preprocess_output(outputs, prob_threshold)
         if (len(coords)==0):
             return 0, 0
         coords = coords[0] #take the first detected face
@@ -94,7 +94,7 @@ class FaceDetectionModel:
         return img_processed
             
 
-    def preprocess_output(self, outputs):
+    def preprocess_output(self, outputs, prob_threshold):
         '''
         Before feeding the output of this model to the next model,
         you might have to preprocess the output. This function is where you can do that.
@@ -103,7 +103,7 @@ class FaceDetectionModel:
         outs = outputs[self.output_names][0][0]
         for out in outs:
             conf = out[2]
-            if conf>0.6:
+            if conf>prob_threshold:
                 x_min=out[3]
                 y_min=out[4]
                 x_max=out[5]
