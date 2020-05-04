@@ -72,14 +72,16 @@ python main.py -f <Path of xml file of face detection model> \
 
 ### Command Line Arguments for Running the app
 - Following are commanda line arguments that can use for while running the main.py file ` python main.py `:-
+
   1. -h     (required) : Get the information about all the command line arguments
   2. -fl    (required) : Specify the path of Face Detection model's xml file
   3. -hp    (required) : Specify the path of Head Pose Estimation model's xml file
   4. -g     (required) : Specify the path of Gaze Estimation model's xml file
   5. -i     (required) : Specify the path of input video file or enter cam for taking input video from webcam
   6. -d     (optional) : Specify the target device to infer the video file on the model. Suppoerted devices are: CPU, GPU,                            FPGA, MYRIAD. 
-  7. -l     (optional) : Specify the absolute path of cpu extension if some layers of models are not supported on the device.
-  8. -flags (optional) : Specify the flags from fd, fld, hp, ge if you want to visualize the output of corresponding models                            of each frame (write flags with space seperation. Ex:- -flags fd fld hp).
+  7. -l     (optional) : Specify the absolute path of cpu extension if some layers of models are not supported on the   device.
+  9. -prob  (optional) : Specify the probability threshold for face detection model to detect the face accurately from video frame.
+  8. -flags (optional) : Specify the flags from fd, fld, hp, ge if you want to visualize the output of corresponding models                           of each frame (write flags with space seperation. Ex:- -flags fd fld hp).
 ## Benchmarks
 Benchmark results of the model.
 
@@ -126,7 +128,7 @@ I have run the model in 5 diffrent hardware:-
 Also compared their performances by inference time, frame per second and model loading time.
 
 As we can see from above graph that FPGA took more time for inference than other device because it programs each gate of fpga for compatible for this application. It can take time but there are advantages of FPGA such as:-
-- It is robust and can be use for any application.
+- It is robust meaning it is programmable per requirements unlike other hardwares.
 - It has also longer life-span.
 
 GPU proccesed more frames per second compared to any other hardware and specially when model precision is FP16 because GPU has severals Execution units and their instruction sets are optimized for 16bit floating point data types.
@@ -134,3 +136,9 @@ GPU proccesed more frames per second compared to any other hardware and speciall
 ## Stand Out Suggestions
 
 ### Edge Cases
+
+1. If for some reason model can not detect the face then it prints unable to detect the face and read another frame till it    detects the face or user closes the window.
+
+2. If there are more than one face detected in the frame then model takes the first detected face for control the mouse  pointer.
+
+
