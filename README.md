@@ -45,7 +45,6 @@ python /opt/intel/openvino/deployment_tools/tools/model_downloader/downloader.py
 ```
 
 ## Demo
-*TODO:* Explain how to run a basic demo of your model.
 
 Open a new terminal and run the following commands:-
 
