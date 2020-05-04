@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 from openvino.inference_engine import IECore
 
-class Model_X:
+class FaceDetectionModel:
     '''
     Class for the Face Detection Model.
     '''
@@ -17,8 +17,8 @@ class Model_X:
         self.model_name = model_name
         self.device = device
         self.extensions = extensions
-        self.model_structure = self.model_name+".xml"
-        self.model_weights = self.model_name+".bin"
+        self.model_structure = self.model_name
+        self.model_weights = self.model_name.split('.')[0]+'.bin'
         self.plugin = None
         self.network = None
         self.exec_net = None
@@ -39,7 +39,7 @@ class Model_X:
         unsupported_layers = [l for l in self.network.layers.keys() if l not in supported_layers]
         
         
-        if len(unsupported_layers)!=0:
+        if len(unsupported_layers)!=0 and self.device=='CPU':
             print("unsupported layers found:{}".format(unsupported_layers))
             if not self.extensions==None:
                 print("Adding cpu_extension")
@@ -57,30 +57,28 @@ class Model_X:
         self.exec_net = self.plugin.load_network(network=self.network, device_name=self.device,num_requests=1)
         
         self.input_name = next(iter(self.network.inputs))
-        print(self.input_name)
         self.input_shape = self.network.inputs[self.input_name].shape
-        print(self.input_shape)
         self.output_names = next(iter(self.network.outputs))
-        print(self.output_names)
         self.output_shape = self.network.outputs[self.output_names].shape
-        print(self.output_shape)
         
     def predict(self, image):
         '''
         TODO: You will need to complete this method.
         This method is meant for running predictions on the input image.
         '''
+        
         img_processed = self.preprocess_input(image.copy())
         outputs = self.exec_net.infer({self.input_name:img_processed})
         coords = self.preprocess_output(outputs)
+        if (len(coords)==0):
+            return 0
         h=image.shape[0]
         w=image.shape[1]
         coords = coords* np.array([w, h, w, h])
         coords = coords.astype(np.int32)
         
         cropped_face = image[coords[1]:coords[3], coords[0]:coords[2]]
-        cv2.imshow("face",cropped_face)
-        
+        return cropped_face, coords
 
     def check_model(self):
         ''
@@ -112,3 +110,4 @@ class Model_X:
                 coords=[x_min,y_min,x_max,y_max]
         return coords
         
+

@@ -8,7 +8,6 @@ Sample usage:
     feed.close()
 '''
 import cv2
-from numpy import ndarray
 
 class InputFeeder:
     def __init__(self, input_type, input_file=None):
@@ -36,8 +35,8 @@ class InputFeeder:
         '''
         while True:
             for _ in range(10):
-                _, frame=self.cap.read()
-            yield frame
+                ret, frame=self.cap.read()
+            yield ret, frame
 
 
     def close(self):
