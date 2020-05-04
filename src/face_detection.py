@@ -71,7 +71,8 @@ class FaceDetectionModel:
         outputs = self.exec_net.infer({self.input_name:img_processed})
         coords = self.preprocess_output(outputs)
         if (len(coords)==0):
-            return 0
+            return 0, 0
+        coords = coords[0] #take the first detected face
         h=image.shape[0]
         w=image.shape[1]
         coords = coords* np.array([w, h, w, h])
@@ -107,7 +108,7 @@ class FaceDetectionModel:
                 y_min=out[4]
                 x_max=out[5]
                 y_max=out[6]
-                coords=[x_min,y_min,x_max,y_max]
+                coords.append([x_min,y_min,x_max,y_max])
         return coords
         
 
