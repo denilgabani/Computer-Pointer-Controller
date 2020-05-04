@@ -34,8 +34,8 @@ def build_argparser():
                         help="Specify Path to video file or enter cam for webcam")
     parser.add_argument("-flags", "--previewFlags", required=False, nargs='+',
                         default=[],
-                        help="Specify the flags from fd, fld, hp, ge like --flags fd,hp"
-                             "for visualization of different model outputs," 
+                        help="Specify the flags from fd, fld, hp, ge like --flags fd hp fld (Seperate each flag by space)"
+                             "for see the visualization of different model outputs of each frame," 
                              "fd for Face Detection, fld for Facial Landmark Detection"
                              "hp for Head Pose Estimation, ge for Gaze Estimation." )
     parser.add_argument("-l", "--cpu_extension", required=False, type=str,
@@ -115,7 +115,6 @@ def main():
         
         if (not len(previewFlags)==0):
             preview_frame = frame.copy()
-
             if 'fd' in previewFlags:
                 #cv2.rectangle(preview_frame, (face_coords[0], face_coords[1]), (face_coords[2], face_coords[3]), (255,0,0), 3)
                 preview_frame = croppedFace
