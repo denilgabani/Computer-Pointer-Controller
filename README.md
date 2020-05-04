@@ -61,7 +61,7 @@ python main.py -f <Path of xml file of face detection model> \
 -i <Path of input video file or enter cam for taking input video from webcam> 
 ```
 
-- If you want ot run app on GPU:-
+- If you want to run app on GPU:-
 ```
 python main.py -f <Path of xml file of face detection model> \
 -fl <Path of xml file of facial landmarks detection model> \
@@ -70,7 +70,7 @@ python main.py -f <Path of xml file of face detection model> \
 -i <Path of input video file or enter cam for taking input video from webcam> 
 -d GPU
 ```
-- If you want ot run app on FPGA:-
+- If you want to run app on FPGA:-
 ```
 python main.py -f <Path of xml file of face detection model> \
 -fl <Path of xml file of facial landmarks detection model> \
@@ -102,6 +102,35 @@ Following are commanda line arguments that can use for while running the main.py
   7. -l     (optional) : Specify the absolute path of cpu extension if some layers of models are not supported on the device.
   9. -prob  (optional) : Specify the probability threshold for face detection model to detect the face accurately from video frame.
   8. -flags (optional) : Specify the flags from fd, fld, hp, ge if you want to visualize the output of corresponding models                           of each frame (write flags with space seperation. Ex:- -flags fd fld hp).
+
+### Directory Structure of the project
+
+![directory_structure_img](media/directory_structure.png)
+
+- src folder contains all the source files:-
+  1. face_detection.py 
+     - Contains preprocession of video frame, perform infernce on it and detect the face, postprocess the                          outputs.
+     
+  2. facial_landmarks_detection.py
+     - Take the deteted face as input, preprocessed it, perform inference on it and detect the eye landmarks, postprocess          the outputs.
+     
+  3. head_pose_estimation.py
+     - Take the detected face as input, preprocessed it, perform inference on it and detect the head postion by predicting          yaw - roll - pitch angles, postprocess the outputs.
+     
+  4. gaze_estimation.py
+     - Take the left eye, rigt eye, head pose angles as inputs, preprocessed it, perform inference and predict the gaze            vector, postprocess the outputs.
+     
+  5. input_feeder.py
+     - Contains InputFeeder class which initialize VideoCapture as per the user argument and return the frames one by one.
+     
+  6. mouse_controller.py
+     - Contains MouseController class which take x, y coordinates value, speed, precisions and according these values it            moves the mouse pointer by using pyautogui library.
+  7. main.py
+     - Users need to run main.py file for running the app.
+ 
+- media folder contains demo video which user can use for testing the app.
+
+
 
 ## Benchmarks
 Benchmark results of the model.
