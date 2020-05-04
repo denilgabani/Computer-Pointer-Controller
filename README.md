@@ -65,13 +65,15 @@ python main.py -f <Path of xml file of face detection model> \
 ## Documentation
 
 ### Documentatiob of used models
+
 1. [Face Detection Model](https://docs.openvinotoolkit.org/latest/_models_intel_face_detection_adas_binary_0001_description_face_detection_adas_binary_0001.html)
 2. [Facial Landmarks Detection Model](https://docs.openvinotoolkit.org/latest/_models_intel_landmarks_regression_retail_0009_description_landmarks_regression_retail_0009.html)
 3. [Head Pose Estimation Model](https://docs.openvinotoolkit.org/latest/_models_intel_head_pose_estimation_adas_0001_description_head_pose_estimation_adas_0001.html)
 4. [Gaze Estimation Model](https://docs.openvinotoolkit.org/latest/_models_intel_gaze_estimation_adas_0002_description_gaze_estimation_adas_0002.html)
 
 ### Command Line Arguments for Running the app
-- Following are commanda line arguments that can use for while running the main.py file ` python main.py `:-
+
+Following are commanda line arguments that can use for while running the main.py file ` python main.py `:-
 
   1. -h     (required) : Get the information about all the command line arguments
   2. -fl    (required) : Specify the path of Face Detection model's xml file
@@ -79,7 +81,7 @@ python main.py -f <Path of xml file of face detection model> \
   4. -g     (required) : Specify the path of Gaze Estimation model's xml file
   5. -i     (required) : Specify the path of input video file or enter cam for taking input video from webcam
   6. -d     (optional) : Specify the target device to infer the video file on the model. Suppoerted devices are: CPU, GPU,                            FPGA, MYRIAD. 
-  7. -l     (optional) : Specify the absolute path of cpu extension if some layers of models are not supported on the   device.
+  7. -l     (optional) : Specify the absolute path of cpu extension if some layers of models are not supported on the device.
   9. -prob  (optional) : Specify the probability threshold for face detection model to detect the face accurately from video frame.
   8. -flags (optional) : Specify the flags from fd, fld, hp, ge if you want to visualize the output of corresponding models                           of each frame (write flags with space seperation. Ex:- -flags fd fld hp).
 ## Benchmarks
