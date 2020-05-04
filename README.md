@@ -1,7 +1,3 @@
-# Computer Pointer Controller
-
-*TODO:* Write a short introduction to your project
-
 # Computer-Pointer-Controller
 
 ## Introduction
@@ -11,18 +7,6 @@ Computer Pointer Controller app is used to controll the movement of mouse pointe
 [![Demo video](https://img.youtube.com/vi/qR9rQQ4wiMQ/0.jpg)](https://www.youtube.com/watch?v=qR9rQQ4wiMQ)
 
 ## Project Set Up and Installation
-*TODO:* Explain the setup procedures to run your project. For instance, this can include your project directory structure, the models you need to download and where to place them etc. Also include details about how to install the dependencies your project requires.
-
-## Demo
-*TODO:* Explain how to run a basic demo of your model.
-
-## Documentation
-*TODO:* Include any documentation that users might need to better understand your project code. For instance, this is a good place to explain the command line arguments that your project supports.
-
-## Benchmarks
-*TODO:* Include the benchmark results of running your model on multiple hardwares and multiple model precisions. Your benchmarks can include: model loading time, input/output processing time, model inference time etc.
-
-## Results
 
 ### Setup
 
@@ -79,7 +63,7 @@ python main.py -f <Path of xml file of face detection model> \
 ```
 
 ## Documentation
-*TODO:* Include any documentation that users might need to better understand your project code. For instance, this is a good place to explain the command line arguments that your project supports.
+
 ### Documentatiob of used models
 1. [Face Detection Model](https://docs.openvinotoolkit.org/latest/_models_intel_face_detection_adas_binary_0001_description_face_detection_adas_binary_0001.html)
 2. [Facial Landmarks Detection Model](https://docs.openvinotoolkit.org/latest/_models_intel_landmarks_regression_retail_0009_description_landmarks_regression_retail_0009.html)
@@ -95,20 +79,58 @@ python main.py -f <Path of xml file of face detection model> \
   5. -i     (required) : Specify the path of input video file or enter cam for taking input video from webcam
   6. -d     (optional) : Specify the target device to infer the video file on the model. Suppoerted devices are: CPU, GPU,                            FPGA, MYRIAD. 
   7. -l     (optional) : Specify the absolute path of cpu extension if some layers of models are not supported on the device.
-  8. -flags (optional) : Specify the flags from fd, fld, hp, ge if you want to visualize the output of corresponding models.
+  8. -flags (optional) : Specify the flags from fd, fld, hp, ge if you want to visualize the output of corresponding models                            of each frame (write flags with space seperation. Ex:- -flags fd fld hp).
 ## Benchmarks
-*TODO:* Include the benchmark results of running your model on multiple hardwares and multiple model precisions. Your benchmarks can include: model loading time, input/output processing time, model inference time etc.
+Benchmark results of the model.
 
-## Results*TODO:* Write a short introduction to your project
-4
+### FP32
 
-*TODO:* Discuss the benchmark results and explain why you are getting the results you are getting. For instance, explain why there is difference in inference time for FP32, FP16 and INT8 models.
+**Inference Time** <br/> 
+![inference_time_fp32_image](media/inference_time_fp32.png "Inference Time")
+
+**Frames per Second** <br/> 
+![fps_fp32_image](media/fps_fp32.png "Frames per Second")
+
+**Model Loading Time** <br/> 
+![model_loading_time_fp32_image](media/model_loading_time_fp32.png "Model Loading Time")
+
+### FP16
+
+**Inference Time** <br/> 
+![inference_time_fp16_image](media/inference_time_fp16.png "Inference Time")
+
+**Frames per Second** <br/> 
+![fps_fp16_image](media/fps_fp16.png "Frames per Second")
+
+**Model Loading Time** <br/> 
+![model_loading_time_fp16_image](media/model_loading_time_fp16.png "Model Loading Time")
+
+### INT8
+**Inference Time** <br/> 
+![inference_time_int8_image](media/inference_time_int8.png "Inference Time")
+
+**Frames per Second** <br/> 
+![fps_int8_image](media/fps_int8.png "Frames per Second")
+
+**Model Loading Time** <br/> 
+![model_loading_time_int8_image](media/model_loading_time_int8.png "Model Loading Time")
+
+## Results
+I have run the model in 5 diffrent hardware:-
+1. Intel Core i5-6500TE CPU 
+2. Intel Core i5-6500TE GPU 
+3. IEI Mustang F100-A10 FPGA 
+4. Intel Xeon E3-1268L v5 CPU 
+5. Intel Atom x7-E3950 UP2 GPU
+
+Also compared their performances by inference time, frame per second and model loading time.
+
+As we can see from above graph that FPGA took more time for inference than other device because it programs each gate of fpga for compatible for this application. It can take time but there are advantages of FPGA such as:-
+- It is robust and can be use for any application.
+- It has also longer life-span.
+
+GPU proccesed more frames per second compared to any other hardware and specially when model precision is FP16 because GPU has severals Execution units and their instruction sets are optimized for 16bit floating point data types.
 
 ## Stand Out Suggestions
-This is where you can provide information about the stand out suggestions that you have attempted.
-
-### Async Inference
-If you have used Async Inference in your code, benchmark the results and explain its effects on power and performance of your project.
 
 ### Edge Cases
-There will be certain situations that will break your inference flow. For instance, lighting changes or multiple people in the frame. Explain some of the edge cases you encountered in your project and how you solved them to make your project more robust.
