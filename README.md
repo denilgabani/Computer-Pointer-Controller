@@ -93,7 +93,7 @@ python main.py -f <Path of xml file of face detection model> \
 
 Following are commanda line arguments that can use for while running the main.py file ` python main.py `:-
 
-  1. -h     (required) : Get the information about all the command line arguments
+  1. -h                : Get the information about all the command line arguments
   2. -fl    (required) : Specify the path of Face Detection model's xml file
   3. -hp    (required) : Specify the path of Head Pose Estimation model's xml file
   4. -g     (required) : Specify the path of Gaze Estimation model's xml file
